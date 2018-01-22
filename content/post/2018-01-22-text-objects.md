@@ -28,3 +28,16 @@ Let's take a familiar scenario. Our cursor is placed in the middle of a word (or
 sentence, paragraph, etc.) and we want to delete the entire word (sentence,
 paragaph, etc.). We of course could move our cursor to the beginnning of the
 word and then type 'dw'.
+
+| inside | arround | apply to     |
+| ------ | ------- | ------------ |
+| iw     | aw      | a word       |
+| iW     | aW      | a WORD       |
+| is     | as      | a sentence   |
+| ip     | ap      | a paragraph  |
+| i'     | a'      | a pair of '' |
+| i''    | a''     | a pair of "" |
+| i(     | a(      | a pair of () |
+| i{     | a{      | a pair of {} |
+| i[     | a[      | a pair of [] |
+| i\<    | a\<     | a pair of <> |
