@@ -65,17 +65,15 @@ daw
 the big brown.
 ```
 
-
-
-| inside |    | arround | apply to     |
-| ------ |----| ------- | ------------ |
-| iw     |    | aw      | a word       |
-| iW     |    | aW      | a WORD       |
-| is     |    | as      | a sentence   |
-| ip     |    | ap      | a paragraph  |
-| i'     |    | a'      | a pair of '' |
-| i''    |    | a''     | a pair of "" |
-| i(     |    | a(      | a pair of () |
-| i{     |    | a{      | a pair of {} |
-| i[     |    | a[      | a pair of [] |
-| i\<    |    | a\<     | a pair of <> |
+| inside | arround | apply to     |
+| ------ | ------- | ------------ |
+| iw     | aw      | a word       |
+| iW     | aW      | a WORD       |
+| is     | as      | a sentence   |
+| ip     | ap      | a paragraph  |
+| i'     | a'      | a pair of '' |
+| i''    | a''     | a pair of "" |
+| i(     | a(      | a pair of () |
+| i{     | a{      | a pair of {} |
+| i[     | a[      | a pair of [] |
+| i\<    | a\<     | a pair of <> |
