@@ -50,7 +50,7 @@ upon which our cursor rests, regardless of where in the word our cursor is
 positioned. Word boundaries are defined as they are for the 'w' motion. There
 is a corresponding 'W' text object (i.e. 'yiW', 'diW', or 'caW') which defines
 word boundaries as they are defined in the 'W' motion. For the purposes of
-word and WORDS, the 'i' prefix ('iw' or 'iW') prefix performs the action on
+words and WORDS, the 'i' prefix ('iw' or 'iW') prefix performs the action on
 the object and leaves white space on both sides of the object.
 
 ```vim
@@ -73,10 +73,11 @@ the big brown|.
 Sentence and Paragraph text objects
 -----------------------------------
 
-Vim defines paragraphs as groups of text separated by blank lines.
+Vim defines paragraphs as groups of text separated by blank lines. It can't get
+any easier than that.
 
-The following is straight from the vim documentation for the definition of a
-sentence:
+Sentences are a little more complex. The following is straight from the vim
+documentation for the definition of a sentence:
 
     A sentence is defined as ending at a '.', '!' or '?' followed by either
     the end of a line, or by a space or tab. Any number of closing ')', ']',
@@ -85,6 +86,24 @@ sentence:
     sentence boundary. If the 'J' flag is present in 'cpoptions', at least two
     spaces have to follow the punctuation mark; <Tab>s are not recognized as
     white space. The definition of a sentence cannot be changed.
+
+```vim
+"original text
+The big brown fox jumped over the lazy dog. He then |ran past a chick and a
+deer. Finally, he rested!
+
+" we then type
+cis
+
+" we end up with
+The big brown fox jumped over the lazy dog. | Finally, he rested!
+
+" if we insted type
+das
+
+" we get
+The big brown fox jumped over the lazy dog. |Finally, he rested!
+```
 
 Quatation text objects
 ----------------------
