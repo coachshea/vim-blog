@@ -50,8 +50,10 @@ upon which our cursor rests, regardless of where in the word our cursor is
 positioned. Word boundaries are defined as they are for the 'w' motion. There
 is a corresponding 'W' text object (i.e. 'yiW', 'diW', or 'caW') which defines
 word boundaries as they are defined in the 'W' motion. For the purposes of
-words and WORDS, the 'i' prefix ('iw' or 'iW') prefix performs the action on
-the object and leaves white space on both sides of the object.
+words and WORDS, the 'i' prefix ('iw' or 'iW') performs the action on the
+object and leaves white space on both sides of the object. If we were to type
+'a' (i.e. yaw, daW, caw, etc.), then the action would include the surrounding
+whitespace.
 
 ```vim
 " original line
@@ -139,7 +141,8 @@ Bracket and Parenthesis text objects
 ------------------------------------
 
 The final category of text objects supported by vim, is brackets and
-parnethesis. These work similarly to quotation objects.
+parnethesis. These include '()', '{}', '[]', and '<>'. These work similarly to
+quotation objects.
 
 ```vim
   " original line
