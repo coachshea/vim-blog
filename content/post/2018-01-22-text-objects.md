@@ -4,7 +4,8 @@ author: ~
 date: '2018-01-22'
 slug: text-objects
 categories: []
-tags: [vim, neovim, text objects]
+tags: [vim, neovim, nvim, text objects]
+
 ---
 
 Text objects are a powerful feature of Vim. Yet many users, even some who have
@@ -25,19 +26,21 @@ always as well understood, is how text objects work.
 Need for Text Objects
 ---------------------
 
-In operator-pending mode, we have two choices. We can type a motion as
-described above, or we can type a text object. Let's take a familiar scenario.
-With our cursor placed in the middle of a word, we want to delete the entire
-word. We of course could move our cursor to the beginnning of the word and
-then type 'dw'. Text objects take a different approach and instruct vim to
-delete the entire word. Text objects begin with either an 'i' or an 'a'. This
-makes sense in two ways. First, in normal mode, 'i' and 'a' do not represent
-motions, we use them to enter insert mode, so having them prefix text objects
-does not remove any motions from our options. It makes no sense to enter
-insert mode in operatgor pending mode, so we are losing zero functionality.
-Second, they serve as useful mnemonics. 'i' stands for 'inside' and 'a'
-represents 'around'. We then type the character that represents the 'object'
-upon which we want to perform the action.
+As mentioned previously operator-pending mode offers us two choices. One is to
+type a motion as described above. The other is to type a text object. Let's
+take a familiar scenario. With our cursor placed in the middle of a word, we
+want to delete the entire word. We of course could move our cursor to the
+beginnning of the word and then type 'dw'. Text objects take a different
+approach and instruct vim to delete the entire word.
+
+Text objects begin with either an 'i' or an 'a'. This makes sense in two ways.
+First, in normal mode, 'i' and 'a' do not represent motions, we use them to
+enter insert mode, so having them prefix text objects does not remove any
+motions from our options. It makes no sense to enter insert mode in operatgor
+pending mode, so we are losing zero functionality. Second, they serve as
+useful mnemonics. 'i' stands for 'inside' and 'a' represents 'around'. We then
+type the character that represents the 'object' upon which we want to perform
+the action.
 
 Word and WORD text objects
 --------------------------
@@ -60,7 +63,7 @@ whitespace.
 the big brown do|g.
 
 " we then type
-diw
+ciw
 
 " the result
 the big brown |.
@@ -110,15 +113,14 @@ The big brown fox jumped over the lazy dog. |Finally, he rested!
 Quatation text objects
 ----------------------
 
-User frequently use text objects to work on quotations. We frequently find
-ourselves in the middle of a quote and decide that we need to perform an
-action on the entire quote. Vim provides single-quote (i.e. '), double-quote
-("), and backtick-quote (`) text objects. The "inside" (i.e. 'i') text object
-modifier refers to the text between the two quotes. The "around" (i.e. 'a')
-text object modifier includes the text and the quotation marks. This seems
-simple enough, but remember, unlike word, sentence, and paragraph text
-objects, "around" in this context does not include any whitespace outside of
-the quatation marks.
+We often use text objects to work on quotations. We frequently find ourselves
+in the middle of a quote and decide that we need to perform an action on
+the entire quote. Vim provides single-quote (i.e. '), double-quote ("), and
+backtick-quote (\`) text objects. The "inside" (i.e. 'i') text object modifier
+refers to the text between the two quotes. The "around" (i.e. 'a') text object
+modifier includes the text and the quotation marks. This seems simple enough,
+but remember, unlike word, sentence, and paragraph text objects, "around" in
+this context does not include any whitespace outside of the quatation marks.
 
 ```vim
 " original line
@@ -131,7 +133,7 @@ di"
 Mike said, "|"
 
 " if we instread type
-da"
+ca"
 
 " the result (notice the whitespace remains)
 Mike said, |
@@ -140,22 +142,22 @@ Mike said, |
 Bracket and Parenthesis text objects
 ------------------------------------
 
-The final category of text objects supported by vim, is brackets and
-parnethesis. These include '()', '{}', '[]', and '<>'. These work similarly to
-quotation objects.
+The final category of text objects supported by vim (at least supported
+natively), is brackets and parnethesis. These include '()', '{}', '[]', and
+'<>'. These work similarly to quotation objects.
 
 ```vim
   " original line
 function(a,|b,c)
 
 " we then type
-di(
+di( " or di)
 
 " the result
 function(|)
 
 " if we instread type
-da(
+da( " or da)
 
 " the result
 function|
