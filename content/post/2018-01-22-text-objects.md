@@ -30,7 +30,7 @@ As mentioned previously operator-pending mode offers us two choices. One is to
 type a motion as described above. The other is to type a text object. Let's
 take a familiar scenario. With our cursor placed in the middle of a word, we
 want to delete the entire word. We of course could move our cursor to the
-beginnning of the word and then type 'dw'. Text objects take a different
+beginnning of the word and then type 'dw', but text objects take a different
 approach and instruct vim to delete the entire word.
 
 Text objects begin with either an 'i' or an 'a'. This makes sense in two ways.
