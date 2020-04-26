@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.69.2" />
+
+
+<title>Text Objects - A Hugo website</title>
+<meta property="og:title" content="Text Objects - A Hugo website">
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/coachshea/vim-blog">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">5 min read</span>
+    
+
+    <h1 class="article-title">Text Objects</h1>
+
+    
+    <span class="article-date">2018/01/22</span>
+    
+
+    <div class="article-content">
+      <p>Text objects are a powerful feature of Vim. Yet many users, even some who have
+used Vim for a long time, don&rsquo;t always fully appreciate their full power. When
+we execute a normal mode action (delete, change, yank, etc.), we first type the
+character of the desired action (i.e. &lsquo;y&rsquo;). We are now in a state that Vim
+refers to as operator-pending mode. In operator-pending mode, we have two
+options: we can type a motion or a text object. One couldn&rsquo;t get by a days worth
+of using vim without some basic understanding of motions. Motions take our
+cursor from a given point to another point. &lsquo;l&rsquo; takes us one character forward,
+&lsquo;b&rsquo; takes us one whole word backward, etc. Therefore, when we use a motion after
+a normal mode action, we perform that action from the point of the cursor till
+the end of the motion. By pressing &lsquo;dw&rsquo; we delete from point of the cursor till
+the beginning of the next word. So far, I&rsquo;m sure that everyone reading this post
+completely understands this process. What isn&rsquo;t always as well understood, is
+how text objects work.</p>
+<h2 id="need-for-text-objects">Need for Text Objects</h2>
+<p>As mentioned previously operator-pending mode offers us two choices. One is to
+type a motion as described above. The other is to type a text object. Let&rsquo;s
+take a familiar scenario. With our cursor placed in the middle of a word, we
+want to delete the entire word. We of course could move our cursor to the
+beginning of the word and then type &lsquo;dw&rsquo;, but text objects take a different
+approach and instruct vim to delete the entire word.</p>
+<p>Text objects begin with either an &lsquo;i&rsquo; or an &lsquo;a&rsquo;. This makes sense in two ways.
+First, in normal mode, &lsquo;i&rsquo; and &lsquo;a&rsquo; do not represent motions, we use them to
+enter insert mode, so having them prefix text objects does not remove any
+motions from our options. It makes no sense to enter insert mode in operator
+pending mode, so we are losing zero functionality. Second, they serve as
+useful mnemonics. &lsquo;i&rsquo; stands for &lsquo;inside&rsquo; and &lsquo;a&rsquo; represents &lsquo;around&rsquo;. We then
+type the character that represents the &lsquo;object&rsquo; upon which we want to perform
+the action.</p>
+<h2 id="word-and-word-text-objects">Word and WORD text objects</h2>
+<p>Nothing teaches like an example, so let&rsquo;s begin. Suppose we type &lsquo;yiw&rsquo;.
+The &lsquo;y&rsquo; tells vim that we want to perform a yank (i.e. copy) action. The
+&lsquo;i&rsquo; tells vim to perform that action inside of a text object. Finally, &lsquo;w&rsquo;
+tells vim that the text object is a word. Vim now yanks the entire word
+upon which our cursor rests, regardless of where in the word our cursor is
+positioned. Word boundaries are defined as they are for the &lsquo;w&rsquo; motion. There
+is a corresponding &lsquo;W&rsquo; text object (i.e. &lsquo;yiW&rsquo;, &lsquo;diW&rsquo;, or &lsquo;caW&rsquo;) which defines
+word boundaries as they are defined in the &lsquo;W&rsquo; motion. For the purposes of
+words and WORDS, the &lsquo;i&rsquo; prefix (&lsquo;iw&rsquo; or &lsquo;iW&rsquo;) performs the action on the
+object and leaves white space on both sides of the object. If we were to type
+&lsquo;a&rsquo; (i.e. yaw, daW, caw, etc.), then the action would include the surrounding
+whitespace.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; original line</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">the</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span> <span style="color:#a6e22e">do</span>|<span style="color:#a6e22e">g</span>.<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we then type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">ciw</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; the result</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">the</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span> |.<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; if we instead type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">daw</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we get</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">the</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span>|.<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="sentence-and-paragraph-text-objects">Sentence and Paragraph text objects</h2>
+<p>Vim defines paragraphs as groups of text separated by blank lines. It can&rsquo;t get
+any easier than that.</p>
+<p>Sentences are a little more complex. The following is straight from the vim
+documentation for the definition of a sentence:</p>
+<pre><code>A sentence is defined as ending at a '.', '!' or '?'
+followed by either the end of a line, or by a space
+or tab. Any number of closing ')', ']', '&quot;' and '''
+characters may appear after the '.', '!' or '?'
+before the spaces, tabs or end of line. A paragraph
+and section boundary is also a sentence boundary.
+If the 'J' flag is present in 'cpoptions', at least
+two spaces have to follow the punctuation mark;
+&lt;Tab&gt;s are not recognized as white space. The
+definition of a sentence cannot be changed.
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34;original text</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">The</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span> <span style="color:#a6e22e">fox</span> <span style="color:#a6e22e">jumped</span> <span style="color:#a6e22e">over</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">lazy</span> <span style="color:#a6e22e">dog</span>. <span style="color:#a6e22e">He</span> <span style="color:#a6e22e">then</span> |<span style="color:#a6e22e">ran</span> <span style="color:#a6e22e">past</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">chick</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">a</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">deer</span>. <span style="color:#a6e22e">Finally</span>, <span style="color:#a6e22e">he</span> <span style="color:#a6e22e">rested</span>!<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we then type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">cis</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we end up with</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">The</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span> <span style="color:#a6e22e">fox</span> <span style="color:#a6e22e">jumped</span> <span style="color:#a6e22e">over</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">lazy</span> <span style="color:#a6e22e">dog</span>. | <span style="color:#a6e22e">Finally</span>, <span style="color:#a6e22e">he</span> <span style="color:#a6e22e">rested</span>!<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; if we insted type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">das</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we get</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">The</span> <span style="color:#a6e22e">big</span> <span style="color:#a6e22e">brown</span> <span style="color:#a6e22e">fox</span> <span style="color:#a6e22e">jumped</span> <span style="color:#a6e22e">over</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">lazy</span> <span style="color:#a6e22e">dog</span>. |<span style="color:#a6e22e">Finally</span>, <span style="color:#a6e22e">he</span> <span style="color:#a6e22e">rested</span>!<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="quatation-text-objects">Quatation text objects</h2>
+<p>We often use text objects to work on quotations. We frequently find ourselves
+in the middle of a quote and decide that we need to perform an action on
+the entire quote. Vim provides single-quote (i.e. <code>'</code>), double-quote (<code>&quot;</code>), and
+backtick-quote <code>(`)</code> text objects. The &ldquo;inside&rdquo; (i.e. <code>i</code>) text object modifier
+refers to the text between the two quotes. The &ldquo;around&rdquo; (i.e. <code>a</code>) text object
+modifier includes the text and the quotation marks. This seems simple enough,
+but remember, unlike word, sentence, and paragraph text objects, &ldquo;around&rdquo; in
+this context does not include any whitespace outside of the quotation marks.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">&#34; original line</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Mike</span> <span style="color:#a6e22e">said</span>, <span style="color:#e6db74">&#34;Hello f|riend&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we then type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">di</span>&#34;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; the result</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Mike</span> <span style="color:#a6e22e">said</span>, <span style="color:#e6db74">&#34;|&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; if we instead type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">ca</span>&#34;<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; the result (notice the whitespace remains)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">Mike</span> <span style="color:#a6e22e">said</span>, |<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="bracket-and-parenthesis-text-objects">Bracket and Parenthesis text objects</h2>
+<p>The final category of text objects supported by vim (at least supported
+natively), is brackets and parenthesis. These include <code>()</code>, <code>{}</code>, <code>[]</code>, and
+<code>&lt;&gt;</code>. These work similarly to quotation objects.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-vim" data-lang="vim"><span style="color:#75715e">  &#34; original line</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>,|<span style="color:#a6e22e">b</span>,<span style="color:#a6e22e">c</span>)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; we then type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">di</span>( <span style="color:#75715e">&#34; or di)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; the result</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>(|)<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; if we instread type</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">da</span>( <span style="color:#75715e">&#34; or da)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">
+</span><span style="color:#75715e">&#34; the result</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">function</span>|<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="summary">Summary</h2>
+<p>The longer we use vim, the more we appreciate text objects. The table below is
+a reference to the available text objects.</p>
+<table>
+<thead>
+<tr>
+<th>inside</th>
+<th>around</th>
+<th>apply to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>iw</td>
+<td>aw</td>
+<td>a word</td>
+</tr>
+<tr>
+<td>iW</td>
+<td>aW</td>
+<td>a WORD</td>
+</tr>
+<tr>
+<td>is</td>
+<td>as</td>
+<td>a sentence</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>ap</td>
+<td>a paragraph</td>
+</tr>
+<tr>
+<td>i&rsquo;</td>
+<td>a&rsquo;</td>
+<td>a pair of ‘’</td>
+</tr>
+<tr>
+<td>i&rsquo;&rsquo;</td>
+<td>a&rsquo;&rsquo;</td>
+<td>a pair of “”</td>
+</tr>
+<tr>
+<td>i(</td>
+<td>a(</td>
+<td>a pair of ()</td>
+</tr>
+<tr>
+<td>i{</td>
+<td>a{</td>
+<td>a pair of {}</td>
+</tr>
+<tr>
+<td>i[</td>
+<td>a[</td>
+<td>a pair of []</td>
+</tr>
+<tr>
+<td>i&lt;</td>
+<td>a&lt;</td>
+<td>a pair of &lt;&gt;</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
