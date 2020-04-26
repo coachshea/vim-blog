@@ -1,0 +1,8 @@
+---
+title: myFile
+author: John Shea
+date: '2020-04-23'
+slug: myfile
+categories: []
+tags: []
+---
