@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>neovim on A Hugo website</title>
+    <link>/tags/neovim/</link>
+    <description>Recent content in neovim on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Text Objects</title>
+      <link>/2018/01/22/text-objects/</link>
+      <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/22/text-objects/</guid>
+      <description>Text objects are a powerful feature of Vim. Yet many users, even some who have used Vim for a long time, don&amp;rsquo;t always fully appreciate their full power. When we execute a normal mode action (delete, change, yank, etc.), we first type the character of the desired action (i.e. &amp;lsquo;y&amp;rsquo;). We are now in a state that Vim refers to as operator-pending mode. In operator-pending mode, we have two options: we can type a motion or a text object.</description>
+    </item>
+    
+  </channel>
+</rss>

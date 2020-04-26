@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A Hugo website</title>
+    <link>/</link>
+    <description>Recent content on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My Post</title>
+      <link>/2020/04/23/my-post/</link>
+      <pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/23/my-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>myFile</title>
+      <link>/2020/04/23/myfile/</link>
+      <pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/23/myfile/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trial</title>
+      <link>/2020/04/23/trial/</link>
+      <pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/23/trial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>This is a sight that I created for writing blogs on topics related to the great text editor Vim. I very much enjoy working with Vim and I hope this blog will help others learn to better use Vim.</description>
+    </item>
+    
+    <item>
+      <title>Text Objects</title>
+      <link>/2018/01/22/text-objects/</link>
+      <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/22/text-objects/</guid>
+      <description>Text objects are a powerful feature of Vim. Yet many users, even some who have used Vim for a long time, don&amp;rsquo;t always fully appreciate their full power. When we execute a normal mode action (delete, change, yank, etc.), we first type the character of the desired action (i.e. &amp;lsquo;y&amp;rsquo;). We are now in a state that Vim refers to as operator-pending mode. In operator-pending mode, we have two options: we can type a motion or a text object.</description>
+    </item>
+    
+  </channel>
+</rss>
